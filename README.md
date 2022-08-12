@@ -8,4 +8,6 @@ kubeconfig add -f ./newconfig -c mycluster
 ```
 This command adds the kubeconfig in `./newconfig` path to 
 `~/.kube/config`. Right now it supports only one cluster 
-in the `newconfig`.
+in the `newconfig`. The resulting cluster and context name 
+in `~/.kube/config` will be `mycluster` and the user will be
+`mycluster-admin`.
