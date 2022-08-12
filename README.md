@@ -12,6 +12,6 @@ in the `newconfig`. The resulting cluster and context name
 in `~/.kube/config` will be `mycluster` and the user will be
 `mycluster-admin`.
 
-# Install
+# Installation
 Download it from the release page of this repo.
 After downloading, move the binary to a directory in your PATH.
