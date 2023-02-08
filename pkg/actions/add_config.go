@@ -11,14 +11,14 @@ import (
 func readKubeconfigFile (configFilePath string) (Kubeconfig, error) {
 	configFile, err := ioutil.ReadFile(configFilePath)
 	if err != nil {
-		newErr := fmt.Errorf("Error reading config file %s: %w", configFilePath, err)
+		newErr := fmt.Errorf("error reading config file %s: %w", configFilePath, err)
 		return Kubeconfig{}, newErr
     }
 
 	var kubeconfig Kubeconfig
 	err = yaml.Unmarshal(configFile, &kubeconfig)
 	if err != nil {
-		newErr := fmt.Errorf("Error parsing config file %s: %w", configFilePath, err)
+		newErr := fmt.Errorf("error parsing config file %s: %w", configFilePath, err)
 		return Kubeconfig{}, newErr
 	}
 
@@ -28,13 +28,13 @@ func readKubeconfigFile (configFilePath string) (Kubeconfig, error) {
 func writeKubeconfigFile (kubeconfig Kubeconfig, configFilePath string) error {
 	configFile, err := yaml.Marshal(kubeconfig)
 	if err != nil {
-		newErr := fmt.Errorf("Error serializing config file: %w", err)
+		newErr := fmt.Errorf("error serializing config file: %w", err)
 		return newErr
 	}
 
 	err = ioutil.WriteFile(configFilePath, configFile, 0)
 	if err != nil {
-		newErr := fmt.Errorf("Error writing to config file %s: %w", configFilePath, err)
+		newErr := fmt.Errorf("error writing to config file %s: %w", configFilePath, err)
 		return newErr
 	}
 

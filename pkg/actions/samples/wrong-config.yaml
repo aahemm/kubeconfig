@@ -1,0 +1,19 @@
+aVersion: v1
+clusters:
+- cluster:
+    certificate-authority-data: wrong-ca-RUdJTiBD
+    server: https://192.168.0.6:6443
+  name: cl-wrong
+contexts:
+- context:
+    cluster: cl-wrong
+    namespace: nonexistent
+    user: cl-wrong-admin
+  name: cl-wrong
+current-context: cl-wrong
+kind: Config
+users:
+- name: cl-wrong-admin
+  user:
+    client-certificate-data: wrong-cert-JTiBDRVJU
+    client-key-data: wrong-key-EgUFJJVkFU

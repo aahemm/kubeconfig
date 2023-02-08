@@ -23,7 +23,7 @@ type KubeconfigContextWithName struct {
 
 // Cluster
 type KubeconfigClusterWithName struct {
-	Cluster map[string]string `yaml:"cluster"`
+	Cluster map[string]interface{} `yaml:"cluster"`
 	Name string `yaml:"name"`
 }
 

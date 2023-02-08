@@ -23,7 +23,7 @@ var addCmd = &cobra.Command{
 	file must only have one cluster, user and context`,
 	Run: func(cmd *cobra.Command, args []string) {
 		if clusterName == "" {
-			fmt.Println("Please provide a cluster name")
+			fmt.Println("Please provide a cluster name with -c or --cluster")
 			os.Exit(1)
 		}
 
