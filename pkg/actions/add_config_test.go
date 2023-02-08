@@ -1,6 +1,9 @@
 package actions
 
 import (
+	"fmt"
+	"io"
+	"os"
 	"testing"
 )
 
@@ -141,5 +144,28 @@ func Test_readKubeconfigFile_insecure(t *testing.T) {
 		if _, ok := kcon.Clusters[0].Cluster["insecure-skip-tls-verify"].(bool); !ok {
 			t.Fatalf("readKubeconfigFile context insecure-skip-tls-verify is not boolean: %v", kcon.Clusters[0].Cluster["insecure-skip-tls-verify"])
 		}
+		if !kcon.Clusters[0].Cluster["insecure-skip-tls-verify"].(bool) {
+			t.Fatalf("readKubeconfigFile context insecure-skip-tls-verify is not true: %v", kcon.Clusters[0].Cluster["insecure-skip-tls-verify"])
+		}		
 	}
+}
+
+func Test_AddConfig(t *testing.T){
+	mainConf, _ := os.Open("./samples/main-config.yaml")
+	defer mainConf.Close()
+
+	maintmpConf, _ := os.Create("./samples/tmp-main-config.yaml")
+	byteNum, _ := io.Copy(maintmpConf, mainConf)
+	fmt.Printf("Read %d bytes", byteNum)
+
+	err := AddConfig("newcl", "./samples/tmp-main-config.yaml", "./samples/test-config.yaml")
+	if err != nil {
+		t.Fatalf("error in AddConfig: %v", err)
+	}
+
+	if !areFilesEqual("./samples/tmp-main-config.yaml", "./samples/main-test-merged-config.yaml") {
+		t.Fatal("AddConfig did not work correct")
+	}
+	maintmpConf.Close()
+	os.Remove("./samples/tmp-main-config.yaml")
 }

@@ -1,0 +1,31 @@
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority-data: main-ca-0FURS0tL
+    server: https://192.168.0.8:6443
+  name: cl-main
+- cluster:
+    certificate-authority-data: test-ca-RUsrMVdOU
+    server: https://192.168.0.6:6443
+  name: newcl
+contexts:
+- context:
+    cluster: cl-main
+    namespace: main
+    user: cl-main-admin
+  name: cl-main
+- context:
+    cluster: newcl
+    user: newcl-admin
+  name: newcl
+users:
+- user:
+    client-certificate-data: main-cert-dJTiBDRVJ
+    client-key-data: main-key-EgUFJJVkFU
+  name: cl-main-admin
+- user:
+    client-certificate-data: test-cert-JTiBDRVJU
+    client-key-data: test-key-EgUFJJVkFURSBLRVkt
+  name: newcl-admin
+current-context: cl-main
+kind: Config
