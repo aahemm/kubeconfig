@@ -48,7 +48,7 @@ func AddConfig(clusterName, configFilePath string) error {
 	}
 
 	currentUser, _ := user.Current()
-	mainKubeconfigFilePath := "/home/" + currentUser.Username + "/.kube/config"
+	mainKubeconfigFilePath := currentUser.HomeDir + "/.kube/config"
 	mainKubeconfig, err := readKubeconfigFile(mainKubeconfigFilePath)
 	if err != nil {
 		return err
