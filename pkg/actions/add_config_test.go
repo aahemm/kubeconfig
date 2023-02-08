@@ -141,6 +141,5 @@ func Test_readKubeconfigFile_insecure(t *testing.T) {
 		if _, ok := kcon.Clusters[0].Cluster["insecure-skip-tls-verify"].(bool); !ok {
 			t.Fatalf("readKubeconfigFile context insecure-skip-tls-verify is not boolean: %v", kcon.Clusters[0].Cluster["insecure-skip-tls-verify"])
 		}
-		// fmt.Printf(%v)
 	}
 }

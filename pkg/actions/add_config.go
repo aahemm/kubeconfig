@@ -3,7 +3,6 @@ package actions
 import (
 	"fmt"
 	"io/ioutil"
-	"os/user"
 
 	yaml "gopkg.in/yaml.v2"
 )
@@ -41,19 +40,24 @@ func writeKubeconfigFile (kubeconfig Kubeconfig, configFilePath string) error {
 	return nil 
 } 
 
-func AddConfig(clusterName, configFilePath string) error {
-	newKubeconfig, err := readKubeconfigFile(configFilePath)
+func AddConfig(clusterName, mainKubeconfigFilePath, configFilePath string) error {
+	err := backup(mainKubeconfigFilePath, "mainconfig-bkp")
 	if err != nil {
-		return err 
+		return err
 	}
-
-	currentUser, _ := user.Current()
-	mainKubeconfigFilePath := currentUser.HomeDir + "/.kube/config"
 	mainKubeconfig, err := readKubeconfigFile(mainKubeconfigFilePath)
 	if err != nil {
 		return err
 	}
 
+	err = backup(configFilePath, "newconfig-bkp")
+	if err != nil {
+		return err
+	}
+	newKubeconfig, err := readKubeconfigFile(configFilePath)
+	if err != nil {
+		return err 
+	}
 	newKubeconfig.Clusters[0].Name = clusterName
 	newKubeconfig.Users[0].Name = clusterName + "-admin"
 	newKubeconfig.Contexts[0] = KubeconfigContextWithName{
