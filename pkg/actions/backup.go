@@ -28,6 +28,6 @@ func backup(configPath, backupName string) error {
     if err != nil {
         return fmt.Errorf("could not write kubeconfig backup %s: %w", backupDir+backupName, err)
     }
-	fmt.Printf("Backed up %d bytes to %s", byteNum, backupDir+backupName)
+	fmt.Printf("Backed up %d bytes to %s \n", byteNum, backupDir+backupName)
 	return nil 
 }

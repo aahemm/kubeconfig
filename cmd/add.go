@@ -12,10 +12,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var configFile string 
-var clusterName string
-var mainKubeconfigFilePath string
-
 var addCmd = &cobra.Command{
 	Use:   "add",
 	Short: "Add a kubeconfig to your ~/.kube/config file",
