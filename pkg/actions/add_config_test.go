@@ -169,3 +169,23 @@ func Test_AddConfig(t *testing.T){
 	maintmpConf.Close()
 	os.Remove("./samples/tmp-main-config.yaml")
 }
+
+func Test_AddConfig_insecure(t *testing.T){
+	mainConf, _ := os.Open("./samples/main-config.yaml")
+	defer mainConf.Close()
+
+	maintmpConf, _ := os.Create("./samples/tmp-main-insecure-config.yaml")
+	byteNum, _ := io.Copy(maintmpConf, mainConf)
+	fmt.Printf("Read %d bytes", byteNum)
+
+	err := AddConfig("newcl-insecure", "./samples/tmp-main-insecure-config.yaml", "./samples/insecure-config.yaml")
+	if err != nil {
+		t.Fatalf("error in AddConfig: %v", err)
+	}
+
+	if !areFilesEqual("./samples/tmp-main-insecure-config.yaml", "./samples/main-insecure-merged-config.yaml") {
+		t.Fatal("AddConfig did not work correct for insecure config")
+	}
+	maintmpConf.Close()
+	os.Remove("./samples/tmp-main-insecure-config.yaml")
+}

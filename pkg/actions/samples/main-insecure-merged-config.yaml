@@ -1,0 +1,31 @@
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority-data: main-ca-0FURS0tL
+    server: https://192.168.0.8:6443
+  name: cl-main
+- cluster:
+    insecure-skip-tls-verify: true
+    server: https://192.168.0.7:6443
+  name: newcl-insecure
+contexts:
+- context:
+    cluster: cl-main
+    namespace: main
+    user: cl-main-admin
+  name: cl-main
+- context:
+    cluster: newcl-insecure
+    user: newcl-insecure-admin
+  name: newcl-insecure
+users:
+- user:
+    client-certificate-data: main-cert-dJTiBDRVJ
+    client-key-data: main-key-EgUFJJVkFU
+  name: cl-main-admin
+- user:
+    client-certificate-data: insc-cert-1CRUdJT
+    client-key-data: insc-key-EgUFtLQpN
+  name: newcl-insecure-admin
+current-context: cl-main
+kind: Config
