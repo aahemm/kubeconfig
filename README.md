@@ -19,7 +19,7 @@ in `~/.kube/config` will be `mycluster` and the user will be
 kubeconfig del -c mycluster 
 ```
 This command deletes cluster `mycluster` from `~/.kube/config`. It also backs up `~/.kube/config` to 
-`<home-dir>/.cache/kubeconfig/` directory.
+`~/.cache/kubeconfig/` directory.
 
 ## Update config 
 You can update existing config using a combination of `add` and `delete` commands.
